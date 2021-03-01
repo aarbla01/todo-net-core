@@ -37,5 +37,10 @@ namespace ToDo.Api.Controllers
         [Route("todos/complete")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> CompleteToDo([FromBody] CompleteToDoCommand request) => Ok(await Mediator.Send(request));
+
+        [HttpDelete]
+        [Route("todos/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> DeleteToDo([FromBody] DeleteToDoCommand request) => Ok(await Mediator.Send(request));
     }
 }

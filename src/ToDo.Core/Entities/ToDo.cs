@@ -10,9 +10,13 @@ namespace ToDo.Core.Entities
             Description = description;
             CompletedDateTime = completedDateTime;
         }
-
-        public string Description { get; }
-        public DateTimeOffset? CompletedDateTime { get; }
+        public string Description { get; private set; }
+        public DateTimeOffset? CompletedDateTime { get; private set; }
         public bool IsComplete => CompletedDateTime.HasValue;
+
+        public void Complete()
+        {
+            CompletedDateTime = DateTimeOffset.UtcNow;
+        }
     }
 }

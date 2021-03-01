@@ -1,7 +1,9 @@
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -10,7 +12,10 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using ToDo.Core.Entities;
+using ToDo.Infrastructure.EntityFramework;
 
 namespace ToDo.Api
 {
@@ -32,6 +37,12 @@ namespace ToDo.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ToDo.Api", Version = "v1" });
             });
+            services.AddMediatR(typeof(IEntity).GetTypeInfo().Assembly);
+            services.AddDbContext<ToDoDbContext>(options =>
+                options
+                .EnableSensitiveDataLogging()
+                .UseSqlite(Configuration.GetConnectionString("ToDoDbContext"),
+                x => x.MigrationsAssembly("ToDo.Infrastructure.EntityFramework")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -9,7 +9,11 @@ namespace ToDo.Core.Entities
             Id = id;
         }
         public Guid Id { get; }
-        public bool IsDeleted { get; }
+        public bool IsDeleted { get; private set; }
         public DateTimeOffset CreatedDateTime { get; } = DateTimeOffset.UtcNow;
+        public void Delete()
+        {
+            IsDeleted = true;
+        }
     }
 }
