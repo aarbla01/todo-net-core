@@ -12,9 +12,9 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using ToDo.Core.Entities;
+using ToDo.Implementation.CommandHandlers;
 using ToDo.Infrastructure.EntityFramework;
 
 namespace ToDo.Api
@@ -37,8 +37,8 @@ namespace ToDo.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ToDo.Api", Version = "v1" });
             });
-            services.AddMediatR(typeof(IEntity).GetTypeInfo().Assembly);
-            services.AddDbContext<ToDoDbContext>(options =>
+            services.AddMediatR(typeof(AddToDoCommandHandler));
+            services.AddToDoInfrastructureEntityFramework(options =>
                 options
                 .EnableSensitiveDataLogging()
                 .UseSqlite(Configuration.GetConnectionString("ToDoDbContext"),

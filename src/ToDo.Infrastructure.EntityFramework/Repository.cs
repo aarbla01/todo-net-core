@@ -11,7 +11,7 @@ namespace ToDo.Infrastructure.EntityFramework
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
     {
-        public Repository(DbContext context)
+        public Repository(ToDoDbContext context)
         {
             Context = context;
             Set = context.Set<TEntity>();

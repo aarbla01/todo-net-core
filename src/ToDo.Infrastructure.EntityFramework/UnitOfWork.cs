@@ -8,7 +8,7 @@ namespace ToDo.Infrastructure.EntityFramework
 {
     public class UnitOfWork : IUnitOfWork
     {
-        public UnitOfWork(DbContext dbContext)
+        public UnitOfWork(ToDoDbContext dbContext)
         {
             DbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
