@@ -31,7 +31,7 @@ namespace ToDo.Api.Controllers
         [HttpGet]
         [Route("todos/{id}")]
         [ProducesResponseType(typeof(GetToDoByIdQueryOutput), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetToDosById([FromQuery] GetToDoByIdQuery request) => Ok(await Mediator.Send(request));
+        public async Task<IActionResult> GetToDosById([FromRoute] Guid id) => Ok(await Mediator.Send(new GetToDoByIdQuery { Id = id }));
 
         [HttpPost]
         [Route("todos/complete")]
@@ -41,6 +41,6 @@ namespace ToDo.Api.Controllers
         [HttpDelete]
         [Route("todos/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> DeleteToDo([FromBody] DeleteToDoCommand request) => Ok(await Mediator.Send(request));
+        public async Task<IActionResult> DeleteToDo([FromRoute] Guid id) => Ok(await Mediator.Send(new DeleteToDoCommand { Id = id }));
     }
 }
