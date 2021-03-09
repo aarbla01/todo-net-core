@@ -12,9 +12,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Git", "Git", "{D6B42AE5-7E0
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.Infrastructure.EntityFramework", "src\ToDo.Infrastructure.EntityFramework\ToDo.Infrastructure.EntityFramework.csproj", "{D26CA8C3-22E5-482C-8C05-FB15BBA3D36F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.Infrastructure.EntityFramework", "src\ToDo.Infrastructure.EntityFramework\ToDo.Infrastructure.EntityFramework.csproj", "{D26CA8C3-22E5-482C-8C05-FB15BBA3D36F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.Implementation", "src\ToDo.Implementation\ToDo.Implementation.csproj", "{B0651216-0DE6-413E-B951-2758AAEE276D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.Implementation", "src\ToDo.Implementation\ToDo.Implementation.csproj", "{B0651216-0DE6-413E-B951-2758AAEE276D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{334A0A6C-BCFD-4DAD-B50B-04DF3EAA3981}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.Api.Tests", "tests\ToDo.Api.Tests\ToDo.Api.Tests.csproj", "{06A3F288-60FD-4645-AA8A-E3F53BE033AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -74,9 +78,24 @@ Global
 		{B0651216-0DE6-413E-B951-2758AAEE276D}.Release|x64.Build.0 = Release|Any CPU
 		{B0651216-0DE6-413E-B951-2758AAEE276D}.Release|x86.ActiveCfg = Release|Any CPU
 		{B0651216-0DE6-413E-B951-2758AAEE276D}.Release|x86.Build.0 = Release|Any CPU
+		{06A3F288-60FD-4645-AA8A-E3F53BE033AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06A3F288-60FD-4645-AA8A-E3F53BE033AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06A3F288-60FD-4645-AA8A-E3F53BE033AA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{06A3F288-60FD-4645-AA8A-E3F53BE033AA}.Debug|x64.Build.0 = Debug|Any CPU
+		{06A3F288-60FD-4645-AA8A-E3F53BE033AA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{06A3F288-60FD-4645-AA8A-E3F53BE033AA}.Debug|x86.Build.0 = Debug|Any CPU
+		{06A3F288-60FD-4645-AA8A-E3F53BE033AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06A3F288-60FD-4645-AA8A-E3F53BE033AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06A3F288-60FD-4645-AA8A-E3F53BE033AA}.Release|x64.ActiveCfg = Release|Any CPU
+		{06A3F288-60FD-4645-AA8A-E3F53BE033AA}.Release|x64.Build.0 = Release|Any CPU
+		{06A3F288-60FD-4645-AA8A-E3F53BE033AA}.Release|x86.ActiveCfg = Release|Any CPU
+		{06A3F288-60FD-4645-AA8A-E3F53BE033AA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{06A3F288-60FD-4645-AA8A-E3F53BE033AA} = {334A0A6C-BCFD-4DAD-B50B-04DF3EAA3981}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E76E6668-6683-465A-8A9C-966F1B70A799}
