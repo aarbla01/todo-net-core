@@ -59,55 +59,75 @@ namespace ToDo.Api.Tests.Controllers
             var okayResult = result as OkObjectResult;
             okayResult.Should().NotBeNull();
             okayResult.StatusCode.Should().Be(200);
-            okayResult.Value.Should().NotBeNull();
         }
 
         [TestMethod]
-        public async Task GetToDosById_StateUnderTest_ExpectedBehavior()
+        public async Task GetToDosById_ExistingToDo_Status200Returned()
         {
             // Arrange
-            var mocker = new AutoMocker();
-            var toDoController = mocker.Get<ToDoController>();
-            Guid id = default(global::System.Guid);
+            var mocker = new AutoMocker(MockBehavior.Strict);
 
+            Guid id = Guid.NewGuid();
+            GetToDoByIdQueryOutput getToDoByIdQueryOutput = AutoFaker.Generate<GetToDoByIdQueryOutput>();
+            mocker.Use<IMediator>(x => x.Send(It.Is<GetToDoByIdQuery>(y=> y.Id == id), default) == Task.FromResult(getToDoByIdQueryOutput));
+            var toDoController = mocker.CreateInstance<ToDoController>();
             // Act
             var result = await toDoController.GetToDosById(
                 id);
 
             // Assert
-            Assert.Fail();
+            mocker.VerifyAll();
+            result.Should().NotBeNull();
+            var okayResult = result as OkObjectResult;
+            okayResult.Should().NotBeNull();
+            okayResult.StatusCode.Should().Be(200);
+            okayResult.Value.Should().NotBeNull();
+            okayResult.Value.Should().Be(getToDoByIdQueryOutput);
         }
 
         [TestMethod]
-        public async Task CompleteToDo_StateUnderTest_ExpectedBehavior()
+        public async Task CompleteToDo_ExistingToDo_Status200Returned()
         {
             // Arrange
-            var mocker = new AutoMocker();
-            var toDoController = mocker.Get<ToDoController>();
-            CompleteToDoCommand request = null;
+            var mocker = new AutoMocker(MockBehavior.Strict);
+            CompleteToDoCommand request = AutoFaker.Generate<CompleteToDoCommand>();
+            mocker.Use<IMediator>(x => x.Send(request, default) == Unit.Task);
+            var toDoController = mocker.CreateInstance<ToDoController>();
+            
 
             // Act
             var result = await toDoController.CompleteToDo(
                 request);
 
             // Assert
-            Assert.Fail();
+            mocker.VerifyAll();
+            result.Should().NotBeNull();
+            var okayResult = result as OkObjectResult;
+            okayResult.Should().NotBeNull();
+            okayResult.StatusCode.Should().Be(200);
         }
 
         [TestMethod]
-        public async Task DeleteToDo_StateUnderTest_ExpectedBehavior()
+        public async Task DeleteToDo_ExistingToDo_Status200Returned()
         {
             // Arrange
-            var mocker = new AutoMocker();
-            var toDoController = mocker.Get<ToDoController>();
-            Guid id = default(global::System.Guid);
+            var mocker = new AutoMocker(MockBehavior.Strict);
+            
+            Guid id = Guid.NewGuid();
+            mocker.Use<IMediator>(x => x.Send(It.Is<DeleteToDoCommand>(y => y.Id == id), default) == Unit.Task);
+
+            var toDoController = mocker.CreateInstance<ToDoController>();
 
             // Act
             var result = await toDoController.DeleteToDo(
                 id);
 
             // Assert
-            Assert.Fail();
+            mocker.VerifyAll();
+            result.Should().NotBeNull();
+            var okayResult = result as OkObjectResult;
+            okayResult.Should().NotBeNull();
+            okayResult.StatusCode.Should().Be(200);
         }
     }
 }
