@@ -1,6 +1,7 @@
 using AutoBogus;
 using FluentAssertions;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -39,7 +40,7 @@ namespace ToDo.Api.Tests.Controllers
         }
 
         [TestMethod]
-        public async Task AddToDo_ToDoAdded_Status200Returned()
+        public async Task AddToDo_ToDoAdded_Status201Returned()
         {
             // Arrange
             var mocker = new AutoMocker(MockBehavior.Strict);
@@ -56,9 +57,15 @@ namespace ToDo.Api.Tests.Controllers
             // Assert
             mocker.VerifyAll();
             result.Should().NotBeNull();
-            var okayResult = result as OkObjectResult;
-            okayResult.Should().NotBeNull();
-            okayResult.StatusCode.Should().Be(200);
+            var createdResult = result as CreatedAtActionResult;
+            createdResult.Should().NotBeNull();
+            createdResult.StatusCode.Should().Be(StatusCodes.Status201Created);
+            createdResult.Value.Should().NotBeNull();
+            createdResult.Value.Should().Be(request);
+            createdResult.ActionName.Should().NotBeNull();
+            createdResult.ActionName.Should().Be(nameof(ToDoController.GetToDosById));
+            createdResult.RouteValues.Should().NotBeNull();
+            createdResult.RouteValues.Should().Contain("id", request.Id);
         }
 
         [TestMethod]
@@ -80,7 +87,7 @@ namespace ToDo.Api.Tests.Controllers
             result.Should().NotBeNull();
             var okayResult = result as OkObjectResult;
             okayResult.Should().NotBeNull();
-            okayResult.StatusCode.Should().Be(200);
+            okayResult.StatusCode.Should().Be(StatusCodes.Status200OK);
             okayResult.Value.Should().NotBeNull();
             okayResult.Value.Should().Be(getToDoByIdQueryOutput);
         }
@@ -104,7 +111,7 @@ namespace ToDo.Api.Tests.Controllers
             result.Should().NotBeNull();
             var okayResult = result as OkObjectResult;
             okayResult.Should().NotBeNull();
-            okayResult.StatusCode.Should().Be(200);
+            okayResult.StatusCode.Should().Be(StatusCodes.Status200OK);
         }
 
         [TestMethod]
@@ -127,7 +134,7 @@ namespace ToDo.Api.Tests.Controllers
             result.Should().NotBeNull();
             var okayResult = result as OkObjectResult;
             okayResult.Should().NotBeNull();
-            okayResult.StatusCode.Should().Be(200);
+            okayResult.StatusCode.Should().Be(StatusCodes.Status200OK);
         }
     }
 }

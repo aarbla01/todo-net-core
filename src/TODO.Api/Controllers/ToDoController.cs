@@ -26,7 +26,11 @@ namespace ToDo.Api.Controllers
         [HttpPost]
         [Route("todos")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> AddToDo([FromBody]AddToDoCommand request) => Ok(await Mediator.Send(request));
+        public async Task<IActionResult> AddToDo([FromBody] AddToDoCommand request)
+        {
+            await Mediator.Send(request);
+            return CreatedAtAction(nameof(GetToDosById), new { id = request.Id }, request); 
+        }
 
         [HttpGet]
         [Route("todos/{id}")]
